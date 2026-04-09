@@ -6,6 +6,7 @@ header = 4
 def main():
     file = open("pessoasGOTfixo.dat", "rb")
     max_reg = int.from_bytes(file.read(4), "little")
+    print(max_reg)
     rrn = int(input("Insira RRN a ser buscado: "))
     
     if rrn <= max_reg:
