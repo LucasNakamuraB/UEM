@@ -28,6 +28,7 @@ void main(){
             printf("a sequencia inserida e um palindromo\n");
         }
         else{
+            
             printf("\na sequencia inserida n e um palindromo\n");
         }
         printf("rodar programa novamente? y/n: ");
