@@ -18,10 +18,21 @@ def readall(file, n_reg):
     for i in range(n_reg):
         size = int.from_bytes(file.read(2), "little")
         b_reg = file.read(size)
-        id =int(b_reg.decode().split('|')[0])
+        id = cut_numbers(b_reg.decode())
         tup = (id, b_reg)
         lst.append(tup)
     return lst
 
+def cut_numbers(string: str) -> int:
+    '''
+    corta os primeiros numeros da string
+    '''
+    i = 0
+    n_str = ''
+    while string[i].isdigit():
+        n_str = n_str + string[i]
+        i += 1
+    
+    return int(n_str)
 
 main()
