@@ -1,34 +1,39 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int fatorial(int n){
-    int result = 1;
+void fatorial(int n, int* result){
+    int x = 1;
     for (int i = i; i<= n; i++){
-        result = result * i;
+        x = x * i;
     }
-    return result;
+    *result = x;
 }
 
-void fibonacci(int n){
+int* fibonacci(int n){
     int first = 0;
     int second = 1;
-    while (n > 0){
-        printf("%i, ", first);
+    int *fib;
+    fib = malloc(n*sizeof(int));
+    for(int i = 0;i< n;i++){
+        fib[i] = first;
         int aux = first + second;
         first = second;
         second = aux;
-        n--;
     }
+    return fib;
 }
 
-float potencia(float x, int expoente){
-    float result = 1;
+void potencia(float x, int expoente, float* result){
+    float n = 1;
     for (int i = 0;i< expoente;i++){
-        result = result * x;
+        n = n * x;
     }
-    return result;
+    *result = n;
 }
 
-void primos(int n){
+int*  primos(int n){
+    int* prim;
+    int n_primos = 0;
     for (int i = 1;i <= n; i++){
         int j = 2;
         int primo = 1;
@@ -39,9 +44,18 @@ void primos(int n){
             j ++;
         }
         if(primo){
-            printf("%i, ", i);
+            n_primos ++;
+            int* new_prim = malloc(n_primos*sizeof(int));
+            for (int k = 1;k< n_primos; k++){
+                new_prim[k] = prim[k];
+            }
+            prim = new_prim;
+            prim[n_primos-1] = i;
+            prim[0] = n_primos;
+            
         }
     }
+    return prim;
 }
 
 
@@ -51,6 +65,8 @@ void main(){
     int n = 0;
     float n2 = 0;
     int x = 0;
+    int resultado = 0;
+    float result_float = 0;
     while (run){
         int command = 0;
         printf("\n-- Programa --\nEscolha uma da 5 opções\n");
@@ -67,24 +83,33 @@ void main(){
         case 1:
             printf("Insira 'n':");
             scanf("%i", &n);
-            printf("Resultado: %i", fatorial(n));
+            fatorial(n, &resultado);
+            printf("Resultado: %i", resultado);
         break;
         case 2:
             printf("Insira o numero de casas:");
             scanf("%i", &n);
-            fibonacci(n);
+            int* fib = fibonacci(n);
+            for (int i =0; i<n;i++){
+                printf("%i, ", fib[i]);
+            }
+            free(fib);
         break;
         case 3:
             printf("Insira 'n':");
             scanf("%f", &n2);
             printf("Insira o expoente:");
             scanf("%i", &x);
-            printf("Resultado: %.2f", potencia(n2, x));
+            potencia(n2, x, &result_float);
+            printf("Resultado: %.4f", result_float);
         break;
         case 4:
             printf("Insira a quantidade:");
             scanf("%i", &n);
-            primos(n);
+            int* prim = primos(n);
+            for (int i =0; i<prim[0];i++){
+                printf("%i, ", prim[i]);
+            }
             break;
         case 5:
             run = 0;
