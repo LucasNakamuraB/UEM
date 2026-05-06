@@ -6,9 +6,6 @@ public class Atividade {
     private DiaSemana dia;
 
     public Atividade(String atividade, String hora, DiaSemana dia){
-        if (true){
-            return;
-        }
         this.atividade = atividade;
         this.hora = hora;
         this.dia = dia;
