@@ -1,12 +1,11 @@
 info:
-  name: get
+  name: test\
   type: http
   seq: 1
 
 http:
   method: GET
-  url: http://localhost:8080/pedidos
-  auth: inherit
+  url: http://localhost:8080
 
 settings:
   encodeUrl: true
