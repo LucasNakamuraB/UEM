@@ -1,0 +1,43 @@
+[
+[1, 1, 1, 1, 1, 1, 1, 1],
+[1, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 0, 0, 1, 0, 0, 1],
+[1, 0, 0, 1, 1 ,1, 0, 1],
+[1, 0, 0, 0, 1, 0, 0, 1],
+[1, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 0, 0, 0, 0, 0, 1],
+[1, 1, 1, 1, 1, 1, 1, 1]
+]
+
+echo x % 360
+ scr
+  |> vision_sweep(
+    int.to_float(ang),
+    int.to_float(ang),
+    int.to_float(ang + 90),
+    player_pos,
+  )
+
+
+scr
+  |> image.place_image(
+    screen_width / 2,
+    screen_height / 2,
+    generate_strip(player_pos, raycast(player_pos, int.to_float(ang))),
+  )
+
+pub fn get_from_pos_dir(
+  grid: Grid,
+  pos: Vector,
+  direction: Direction,
+  tile_size: Int,
+) -> Int {
+  let grid_x = pos.x / tile_size
+  let grid_y = pos.y / tile_size
+  case direction {
+    Up -> grid |> g_get(grid_x, { grid_y - 1 })
+    Down -> grid |> g_get(grid_x, grid_y)
+    Left -> grid |> g_get({ grid_x - 1 }, grid_y)
+    Right -> grid |> g_get(grid_x, grid_y)
+  }
+}
