@@ -7,11 +7,12 @@ import lib/grid.{
 import sgleam/check
 import sgleam/fill
 import sgleam/image.{type Image}
+import sgleam/key
 import sgleam/math
 import sgleam/stroke
 import sgleam/world
 
-const tile_size: Int = 32
+const tile_size: Int = 16
 
 const screen_width: Int = 640
 
@@ -19,8 +20,14 @@ const screen_height: Int = 480
 
 const fov: Float = 90.0
 
+const player_pos = Vectorf(64.0, 64.0)
+
+const player2_pos = Vectorf(64.0, 32.0)
+
+const speed = 2.0
+
 pub type ScreenState {
-  ScreenState(position: Vector, angle: int)
+  ScreenState(position_1: Vectorf, position_2: Vectorf, angle: Int)
 }
 
 pub type RayPacket {
@@ -44,6 +51,40 @@ const map: Grid =
       [2, 2, 1, 2, 2, 2, 1, 1],
     ],
   )
+
+pub fn move(pos: Vectorf, angle: Int) {
+  let move_angle = int.to_float(angle - 45)
+  let new_pos =
+    vectorf_sum(
+      pos,
+      Vectorf(
+        speed *. math.sin_deg(move_angle),
+        speed *. math.cos_deg(move_angle),
+      ),
+    )
+  case
+    map
+    |> get_from_pos(
+      Vector(float.truncate(new_pos.x), float.truncate(new_pos.y)),
+      tile_size,
+    )
+  {
+    0 -> new_pos
+    _ -> pos
+  }
+}
+
+pub fn to_vectori(v: Vectorf) {
+  Vector(float.truncate(v.x), float.truncate(v.y))
+}
+
+pub fn vectorf_sum(v1: Vectorf, v2: Vectorf) {
+  Vectorf({ v1.x +. v2.x }, { v1.y +. v2.y })
+}
+
+pub fn vectorf_sub(v1: Vectorf, v2: Vectorf) {
+  Vectorf({ v1.x -. v2.x }, { v1.y -. v2.y })
+}
 
 // calcula a distância entre dois pontos
 pub fn distance(from: Vector, to: Vector) -> Float {
@@ -316,32 +357,44 @@ pub fn raycast_i(pos: Vectorf, angle: Float, step: Float) -> RayPacket {
 
 // gera uma fita para ser colocada na tela
 pub fn generate_strip(origin: Vector, packet: RayPacket) -> image.Image {
-  let dist = float.truncate(distance(origin, packet.position))
-  let height = int.absolute_value(dist) * 3
-  let width = 7
+  let dist =
+    float.truncate(
+      distance(origin, packet.position) *. math.sin_deg(packet.angle),
+    )
+  let height =
+    float.truncate(
+      { int.to_float(screen_height / int.absolute_value(dist)) } *. 10.0,
+    )
+
+  let width = 8
 
   case packet.number, packet.x_side {
     1, True -> {
       let color = fill.blue
-      image.rectangle(width, { screen_height - { height } }, color)
+      image.rectangle(width, height, color)
     }
     1, False -> {
       let color = fill.darkblue
-      image.rectangle(width, { screen_height - { height } }, color)
+      image.rectangle(width, height, color)
     }
     2, True -> {
       let color = fill.red
-      image.rectangle(width, { screen_height - { height } }, color)
+      image.rectangle(width, height, color)
     }
     2, False -> {
       let color = fill.darkred
-      image.rectangle(width, { screen_height - { height } }, color)
+      image.rectangle(width, height, color)
     }
     _, _ -> {
       let color = fill.yellow
-      image.rectangle(width, { screen_height - { height } }, color)
+      image.rectangle(width, height, color)
     }
   }
+}
+
+pub fn draw_player(self: Vector, pos: Vector) -> image.Image {
+  let dist = float.truncate(distance(self, pos))
+  image.star(screen_height / dist, fill.hotpink)
 }
 
 pub fn vision_sweep(
@@ -351,9 +404,17 @@ pub fn vision_sweep(
   end_angle: Float,
   pos: Vectorf,
 ) {
-  let i_pos = Vector(float.truncate(pos.x), float.truncate(pos.y))
+  let i_pos = to_vectori(pos)
   let iangle = float.truncate(angle) % 360
   let step = 2.0
+  let pack = raycast_i(pos, angle, step)
+  let deltapack =
+    RayPacket(
+      pack.position,
+      pack.x_side,
+      pack.number,
+      pack.angle -. start +. 45.0,
+    )
   case angle == end_angle {
     False ->
       vision_sweep(
@@ -362,7 +423,7 @@ pub fn vision_sweep(
             screen_width
               - { { screen_width / 90 } * float.truncate(angle -. start) },
             { screen_height / 2 },
-            generate_strip(i_pos, raycast_i(pos, angle, step)),
+            generate_strip(i_pos, deltapack),
           ),
         start,
         angle +. 1.0,
@@ -374,23 +435,64 @@ pub fn vision_sweep(
       |> image.place_image(
         screen_width - { { screen_width / 90 } * float.truncate(angle) },
         { screen_height / 2 },
-        generate_strip(i_pos, raycast_i(pos, angle, step)),
+        generate_strip(i_pos, deltapack),
       )
   }
 }
 
-pub fn create_screen(x: Int) -> Image {
-  let player_pos = Vectorf(128.0, 128.0)
+pub fn create_screen(state: ScreenState) -> Image {
   //echo raycast(player_pos, Vector(96, 48), 10.0)
   let scr = image.empty_scene(screen_width, screen_height)
-  let ang = x % 360
+  let scr =
+    scr
+    |> image.place_image(
+      screen_width / 2,
+      screen_height / 4,
+      image.rectangle(screen_width, screen_height / 2, fill.gray),
+    )
+  let scr =
+    scr
+    |> image.place_image(
+      screen_width / 2,
+      { screen_height / 4 } * 3,
+      image.rectangle(screen_width, screen_height / 2, fill.darkslategray),
+    )
+  let scr =
+    scr
+    |> image.place_image(
+      screen_width / 2,
+      screen_height / 2,
+      draw_player(to_vectori(state.position_1), to_vectori(state.position_2)),
+    )
   scr
   |> vision_sweep(
-    int.to_float(ang),
-    int.to_float(ang),
-    int.to_float(ang + 90),
-    player_pos,
+    int.to_float(state.angle),
+    int.to_float(state.angle),
+    int.to_float(state.angle + 92),
+    state.position_1,
   )
+}
+
+pub fn turn_camera(state: ScreenState, key: key.Event) {
+  case key {
+    key.ArrowLeft ->
+      ScreenState(state.position_1, state.position_2, state.angle + 5)
+    key.ArrowRight ->
+      ScreenState(state.position_1, state.position_2, state.angle - 5)
+    key.ArrowUp ->
+      ScreenState(
+        move(state.position_1, state.angle),
+        state.position_2,
+        state.angle,
+      )
+    key.ArrowDown ->
+      ScreenState(
+        move(state.position_1, { state.angle - 180 }),
+        state.position_2,
+        state.angle,
+      )
+    _ -> state
+  }
 }
 
 pub fn main() {
@@ -398,7 +500,8 @@ pub fn main() {
 }
 
 pub fn smain() {
-  world.animation(create_screen)
+  world.create(ScreenState(player_pos, player2_pos, 0), create_screen)
+  |> world.on_key_press(turn_camera)
 }
 
 //pub fn raycast_examples() {
