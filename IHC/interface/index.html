@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propaws Petshop</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="desktop-bg">
+  <div class="phone-frame">
+    <div class="status-bar">
+      <span class="sb-time">9:41</span>
+      <span class="sb-icons">●●● 📶 🔋</span>
+    </div>
+
+    <div class="app-header" id="app-header" style="display:none;">
+      <button class="btn-icon" id="btn-back" aria-label="Voltar">←</button>
+      <h1 id="header-title">Título</h1>
+      <span class="header-spacer"></span>
+    </div>
+
+    <main class="app-content" id="app-content">
+
+      <!-- WELCOME -->
+      <section class="screen active" id="screen-welcome">
+        <div class="welcome-wrap">
+          <div class="logo">🐾</div>
+          <h1 class="brand">Propaws Petshop</h1>
+          <p class="subtitle">Cuidando de quem você ama</p>
+          <div class="welcome-actions">
+            <button class="btn btn-primary" id="btn-sou-cliente">Sou Cliente</button>
+            <button class="btn btn-secondary" id="btn-sou-funcionario">Sou Funcionário</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOGIN CLIENTE -->
+      <section class="screen" id="screen-login-cliente">
+        <h2 class="screen-title">Entrar como Cliente</h2>
+        <form id="form-login-cliente" class="form" novalidate>
+          <label>E-mail
+            <input type="email" id="login-cliente-email" required placeholder="seuemail@exemplo.com">
+          </label>
+          <p class="field-error" id="err-login-cliente"></p>
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+        <p class="hint-text">Ainda não tem conta? <a href="#" id="link-cadastro-cliente">Cadastre-se</a></p>
+      </section>
+
+      <!-- CADASTRO CLIENTE -->
+      <section class="screen" id="screen-cadastro-cliente">
+        <h2 class="screen-title">Cadastro de Cliente</h2>
+        <form id="form-cadastro-cliente" class="form" novalidate>
+          <label>Nome
+            <input type="text" id="cc-nome" required placeholder="Nome">
+          </label>
+          <label>Sobrenome
+            <input type="text" id="cc-sobrenome" required placeholder="Sobrenome">
+          </label>
+          <label>Telefone
+            <input type="tel" id="cc-telefone" required placeholder="(44) 99999-9999">
+          </label>
+          <label>E-mail
+            <input type="email" id="cc-email" required placeholder="seuemail@exemplo.com">
+          </label>
+          <p class="field-error" id="err-cadastro-cliente"></p>
+          <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+      </section>
+
+      <!-- LOGIN FUNCIONARIO -->
+      <section class="screen" id="screen-login-funcionario">
+        <h2 class="screen-title">Entrar como Funcionário</h2>
+        <form id="form-login-funcionario" class="form" novalidate>
+          <label>E-mail
+            <input type="email" id="login-funcionario-email" required placeholder="seuemail@propaws.com">
+          </label>
+          <p class="field-error" id="err-login-funcionario"></p>
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+        <p class="hint-text">Conta de demonstração: ana@propaws.com</p>
+      </section>
+
+      <!-- HOME CLIENTE -->
+      <section class="screen" id="screen-home-cliente">
+        <div class="home-greeting">
+          <p class="greeting-label">Olá,</p>
+          <h2 class="greeting-name" id="cliente-nome-home">Cliente</h2>
+        </div>
+        <div class="menu-grid">
+          <button class="menu-card" id="card-meus-pets">
+            <span class="menu-icon">🐶</span>
+            <span>Meus Pets</span>
+          </button>
+          <button class="menu-card" id="card-agendar">
+            <span class="menu-icon">📅</span>
+            <span>Agendar Serviço</span>
+          </button>
+          <button class="menu-card" id="card-meus-agendamentos">
+            <span class="menu-icon">🧾</span>
+            <span>Meus Agendamentos</span>
+          </button>
+          <button class="menu-card" id="card-config-cliente">
+            <span class="menu-icon">⚙️</span>
+            <span>Configurações</span>
+          </button>
+        </div>
+        <button class="btn-link-logout" id="btn-logout-cliente">Sair</button>
+      </section>
+
+      <!-- PETS LIST -->
+      <section class="screen" id="screen-pets">
+        <h2 class="screen-title">Meus Pets</h2>
+        <div class="list" id="lista-pets"></div>
+        <button class="btn btn-primary btn-fixed" id="btn-add-pet">+ Cadastrar Pet</button>
+      </section>
+
+      <!-- PET FORM -->
+      <section class="screen" id="screen-pet-form">
+        <h2 class="screen-title" id="pet-form-title">Cadastrar Pet</h2>
+        <form id="form-pet" class="form" novalidate>
+          <input type="hidden" id="pet-id">
+          <label>Nome do Pet
+            <input type="text" id="pet-nome" required placeholder="Nome">
+          </label>
+          <label>Animal
+            <select id="pet-animal" required>
+              <option value="">Selecione...</option>
+              <option value="cachorro">Cachorro</option>
+              <option value="gato">Gato</option>
+            </select>
+          </label>
+          <label>Raça
+            <input type="text" id="pet-raca" required placeholder="Raça">
+          </label>
+          <label>Cor
+            <input type="text" id="pet-cor" required placeholder="Cor">
+          </label>
+          <label>Informações adicionais <span class="optional-tag">(opcional)</span>
+            <textarea id="pet-info" placeholder="Alergias, comportamento, etc."></textarea>
+          </label>
+          <p class="field-error" id="err-pet-form"></p>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" id="btn-cancel-pet">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- AGENDAR: WIZARD -->
+      <section class="screen" id="screen-agendar">
+        <h2 class="screen-title">Agendar Serviço</h2>
+        <div class="stepper" id="agendar-stepper">
+          <div class="step" data-step="1"><span class="step-dot">1</span>Pet</div>
+          <div class="step" data-step="2"><span class="step-dot">2</span>Serviço</div>
+          <div class="step" data-step="3"><span class="step-dot">3</span>Data</div>
+          <div class="step" data-step="4"><span class="step-dot">4</span>Horário</div>
+          <div class="step" data-step="5"><span class="step-dot">5</span>Confirmar</div>
+        </div>
+
+        <div class="wizard-pane active" id="pane-step-1">
+          <p class="pane-help">Selecione o pet que receberá o serviço.</p>
+          <div class="list" id="lista-pets-agendar"></div>
+        </div>
+
+        <div class="wizard-pane" id="pane-step-2">
+          <p class="pane-help">Selecione o serviço desejado.</p>
+          <div class="list" id="lista-servicos-agendar"></div>
+        </div>
+
+        <div class="wizard-pane" id="pane-step-3">
+          <p class="pane-help">Selecione a data do atendimento. Datas sem horário disponível ou já passadas aparecem desabilitadas.</p>
+          <button type="button" class="btn btn-secondary" id="btn-abrir-calendario">📅 Escolher Data</button>
+          <p class="selected-value" id="data-selecionada-label"></p>
+        </div>
+
+        <div class="wizard-pane" id="pane-step-4">
+          <p class="pane-help">Selecione um horário disponível para o dia escolhido.</p>
+          <label>Horário
+            <select id="select-horario">
+              <option value="">Selecione a data primeiro</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="wizard-pane" id="pane-step-5">
+          <p class="pane-help">Confira os dados antes de confirmar.</p>
+          <div class="summary-card" id="resumo-agendamento"></div>
+        </div>
+
+        <div class="wizard-nav">
+          <button class="btn btn-secondary" id="btn-wizard-voltar">Voltar</button>
+          <button class="btn btn-primary" id="btn-wizard-avancar">Avançar</button>
+        </div>
+      </section>
+
+      <!-- PAGAMENTO -->
+      <section class="screen" id="screen-pagamento">
+        <h2 class="screen-title">Pagamento</h2>
+        <div class="summary-card" id="resumo-pagamento"></div>
+        <p class="pane-help">Esta etapa de pagamento é apenas ilustrativa nesta versão (MVP).</p>
+        <button class="btn btn-primary btn-fixed" id="btn-confirmar-pagamento">Confirmar Pagamento</button>
+      </section>
+
+      <!-- MEUS AGENDAMENTOS -->
+      <section class="screen" id="screen-meus-agendamentos">
+        <h2 class="screen-title">Meus Agendamentos</h2>
+        <div class="list" id="lista-meus-agendamentos"></div>
+      </section>
+
+      <!-- HOME FUNCIONARIO -->
+      <section class="screen" id="screen-home-funcionario">
+        <div class="home-greeting">
+          <p class="greeting-label">Olá,</p>
+          <h2 class="greeting-name" id="funcionario-nome-home">Funcionário</h2>
+        </div>
+        <div class="menu-grid">
+          <button class="menu-card" id="card-cadastrar-servico">
+            <span class="menu-icon">🧼</span>
+            <span>Cadastrar Serviço</span>
+          </button>
+          <button class="menu-card" id="card-agenda-dia">
+            <span class="menu-icon">📋</span>
+            <span>Agenda do Dia</span>
+          </button>
+          <button class="menu-card" id="card-clientes">
+            <span class="menu-icon">👥</span>
+            <span>Clientes</span>
+          </button>
+          <button class="menu-card" id="card-cadastrar-funcionario">
+            <span class="menu-icon">🧑‍💼</span>
+            <span>Cadastrar Funcionário</span>
+          </button>
+          <button class="menu-card" id="card-config-funcionario">
+            <span class="menu-icon">⚙️</span>
+            <span>Configurações</span>
+          </button>
+        </div>
+        <button class="btn-link-logout" id="btn-logout-funcionario">Sair</button>
+      </section>
+
+      <!-- CADASTRAR SERVICO -->
+      <section class="screen" id="screen-servico-form">
+        <h2 class="screen-title">Cadastrar Serviço</h2>
+        <form id="form-servico" class="form" novalidate>
+          <label>Nome do Serviço
+            <input type="text" id="servico-nome" required placeholder="Ex: Hidratação">
+          </label>
+          <label>Custo (R$)
+            <input type="number" id="servico-custo" min="0" step="0.01" required placeholder="0,00">
+          </label>
+          <p class="field-error" id="err-servico-form"></p>
+          <button type="submit" class="btn btn-primary">Salvar Serviço</button>
+        </form>
+        <h3 class="list-subtitle">Serviços cadastrados</h3>
+        <div class="list" id="lista-servicos-cadastrados"></div>
+      </section>
+
+      <!-- CADASTRAR FUNCIONARIO -->
+      <section class="screen" id="screen-cadastro-funcionario">
+        <h2 class="screen-title">Cadastrar Funcionário</h2>
+        <form id="form-cadastro-funcionario" class="form" novalidate>
+          <label>Nome
+            <input type="text" id="cf-nome" required placeholder="Nome">
+          </label>
+          <label>Sobrenome
+            <input type="text" id="cf-sobrenome" required placeholder="Sobrenome">
+          </label>
+          <label>Telefone
+            <input type="tel" id="cf-telefone" required placeholder="(44) 99999-9999">
+          </label>
+          <label>E-mail
+            <input type="email" id="cf-email" required placeholder="funcionario@propaws.com">
+          </label>
+          <p class="field-error" id="err-cadastro-funcionario"></p>
+          <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+      </section>
+
+      <!-- AGENDA DO DIA -->
+      <section class="screen" id="screen-agenda-dia">
+        <h2 class="screen-title">Agenda do Dia</h2>
+        <button type="button" class="btn btn-secondary" id="btn-abrir-calendario-agenda">📅 Escolher Dia</button>
+        <p class="selected-value" id="dia-agenda-label"></p>
+        <div class="list" id="lista-agenda-dia"></div>
+      </section>
+
+      <!-- DETALHE AGENDAMENTO (FUNCIONARIO) -->
+      <section class="screen" id="screen-detalhe-agendamento">
+        <h2 class="screen-title">Detalhe do Agendamento</h2>
+        <div class="summary-card" id="detalhe-agendamento-conteudo"></div>
+      </section>
+
+      <!-- CLIENTES -->
+      <section class="screen" id="screen-clientes">
+        <h2 class="screen-title">Clientes</h2>
+        <input type="search" id="busca-clientes" class="search-input" placeholder="Pesquisar por nome...">
+        <div class="filter-row">
+          <label class="filter-chip"><input type="checkbox" id="filtro-com-pet"> Possui pet cadastrado</label>
+        </div>
+        <div class="list" id="lista-clientes"></div>
+      </section>
+
+      <!-- CONFIGURAÇÕES (NÃO FUNCIONAL) -->
+      <section class="screen" id="screen-config">
+        <h2 class="screen-title">Configurações</h2>
+        <div class="empty-state">
+          <span class="empty-icon">🚧</span>
+          <p>Em desenvolvimento nesta versão do protótipo (MVP).</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- BOTTOM HOME INDICATOR -->
+    <div class="home-indicator"></div>
+  </div>
+</div>
+
+<!-- MODAL: CALENDARIO -->
+<div class="modal-overlay" id="modal-calendario">
+  <div class="modal-box">
+    <div class="modal-header">
+      <button class="btn-icon" id="cal-prev">‹</button>
+      <h3 id="cal-month-label">Mês</h3>
+      <button class="btn-icon" id="cal-next">›</button>
+    </div>
+    <div class="calendar-weekdays">
+      <span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span>
+    </div>
+    <div class="calendar-grid" id="cal-grid"></div>
+    <button class="btn btn-secondary" id="btn-fechar-calendario">Cancelar</button>
+  </div>
+</div>
+
+<!-- MODAL: CONFIRMAÇÃO -->
+<div class="modal-overlay" id="modal-confirm">
+  <div class="modal-box modal-box-small">
+    <p id="confirm-message">Tem certeza?</p>
+    <div class="form-actions">
+      <button class="btn btn-secondary" id="btn-confirm-nao">Não</button>
+      <button class="btn btn-danger" id="btn-confirm-sim">Sim, confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING OVERLAY (feedback de operação demorada) -->
+<div class="loading-overlay" id="loading-overlay">
+  <div class="spinner"></div>
+  <p id="loading-text">Processando...</p>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+REQUISITOS FUNCIONAIS
+
+RF1.O Sistema deve permitir que o usuário se cadastre como Cliente 
+- o cadastro receberá Nome, Sobrenome, telefone e email
+
+RF2. O Sistema deve permitir o cadastro de Funcionários por parte de outro funcionário
+
+RF3. O Cliente deve poder cadastrar um Pet
+- deve haver uma aba de cadastro de pets onde o usuário poderá cadastrar
+ou editar um pet, sendo necessário fornecer: Nome, Animal (menu drop-down com cachorro/gato), Raça, Cor, 
+Informações adicionais (opcional)
+
+RF4. O cliente deve poder agendar um serviço
+- O botão de agendar um serviço deve abrir uma aba de agendamento onde
+o usuário deverrá informar: Pet (cadastrado em RF3), Serviço (RF#) (pop-up de lista com os serviços disponíveis + seu custo), Data e Horário(RF#)
+- A data deve ser selecionada em um pop up de calendário em que as datas em que não há
+nenhum horário disponível ou que já passaram se mostrem indisponíveis, o horário deve ser selecionádo em um
+menu drop-down, em que só apareçam os horários disponíveis no dia selecionado
+- Após confirmar o serviço, o usuário deve ser direcionado para a aba de pagamento (não funcional nesse MVP)
+- Após o pagamento o usuário será direcionado para a homepage
+- O serviço deve ser armazenado no banco de dados com todos os dados fornecidos mais a data/horário de agendamento
+e de pagamento, Cliente, Pet e estado (Agendado, Em andamento, Cancelado, Concluído)
+
+RF5. O Cliente deve poder consultar seus agendamentoss
+- em uma aba de agendamentos ativos, o Cliente deve ser capaz de consultar seus agendamentos ativos (Agendado, Em progresso)
+e ver dados como Pet, data, horário, serviço, custo e estado, com a opção de cancelar um serviço que esteja Agendado
+
+RF6. O Funcionário deve poder cadastrar um serviço
+
+RF7. O funcionário deve poder consultar os serviços agendados
+- O  funcionário deverá selecionar o dia usando um pop up de calendário, a aba listará os serviços agendados para esse dia,
+mostrando o Cliente, Serviço e horário
+- Ao selecionar um serviço agendado, o Funcionário deve poder consultar todos os dados do agendamento e do Pet
+
+RF8 O Funcionário deve poder consultar os clientes cadastrados
+- uma aba deve listar os clientes cadastrados e suas informações, com a possibilidade de filtrar po informações e pesquisar por nome
+
+
+REQUISITOS NÃO FUNCIONAIS
+
+RNF1. Homepage com funcionalidades
+- a homepage deve consistir em um menu contendo botões que levem às abas de cada requisito functional,
+a pagina do Clente deve conter RF3, 4, 5 e do Funcionário deve conter RF 6, 7 e 8, ambos devem ter um  botão não functional de configurções
+
+RNF2. A Plataforma deve ser compatível com dispositivos móveis.
+- A Plataforma deve ser um app para smartphone e tablet, com interface símples, moderna e responsiva (o MVP deve funcionar em desktop para testes)
+
+REQUISITOS DE IHC
+
+ANEXO 1- Lista de Requisitos de IHC
+
+H1 — Visibilidade do status do sistema
+R01. Feedback das ações
+O sistema deve fornecer feedback após ações relevantes realizadas pelo usuário.
+R02. Indicação do estado atual
+O sistema deve deixar claro ao usuário em que estado ou etapa da tarefa ele se encontra.
+R03. Feedback de operações demoradas
+Quando uma operação exigir processamento ou espera, o sistema deve informar que a
+operação está em andamento.
+H2 — Correspondência entre o sistema e o mundo real
+R04. Linguagem familiar
+A interface deve utilizar termos e expressões compreensíveis para o público-alvo,
+evitando linguagem excessivamente técnica.
+R05. Organização compatível com a tarefa
+As informações e etapas devem estar organizadas de maneira coerente com a forma
+como a tarefa é realizada no mundo real.
+R06. Convenções reconhecíveis
+Ícones, símbolos e elementos utilizados devem possuir significado compreensível para o
+usuário ou estar acompanhados de identificação adequada.
+H3 — Controle e liberdade do usuário
+R07. Cancelamento de ações
+O usuário deve poder cancelar operações antes de sua conclusão quando isso for
+apropriado.
+R08. Retorno ou desfazer
+O sistema deve oferecer uma forma de retornar, desfazer ou corrigir ações quando
+houver possibilidade de erro ou mudança de decisão.
+R09. Controle sobre operações críticas
+Ações com consequências relevantes devem permitir revisão ou confirmação antes de
+serem efetivadas, quando apropriado.
+H4 — Consistência e padrões
+R10. Consistência visual
+Elementos com funções semelhantes devem apresentar aparência e comportamento
+consistentes em toda a interface.
+R11. Consistência terminológica
+
+Um mesmo conceito ou ação deve ser representado pelo mesmo termo ao longo do
+sistema.
+R12. Uso de padrões conhecidos
+A interface deve utilizar padrões de interação familiares aos usuários, evitando
+comportamentos inesperados.
+H5 — Prevenção de erros
+R13. Validação de dados
+Os campos de entrada devem validar informações inadequadas antes da conclusão da
+operação.
+R14. Prevenção de operações inválidas
+A interface deve impedir ou reduzir a possibilidade de o usuário realizar ações que não
+sejam permitidas.
+R15. Prevenção de erros em ações críticas
+Operações que possam resultar em perda de dados ou consequências relevantes devem
+possuir mecanismos de prevenção ou confirmação.
+H6 — Reconhecimento em vez de memorização
+R16. Informações necessárias visíveis
+O sistema deve apresentar na interface as informações necessárias para a realização da
+tarefa, evitando exigir memorização.
+R17. Opções e comandos reconhecíveis
+As opções disponíveis devem ser apresentadas de maneira que o usuário consiga
+reconhecê-las sem precisar lembrar comandos ou procedimentos.
+R18. Preservação do contexto
+Durante a realização da tarefa, o sistema deve manter visíveis ou facilmente acessíveis
+as informações relevantes para a decisão do usuário.
+H7 — Flexibilidade e eficiência de uso
+R19. Eficiência da tarefa
+A interface deve permitir que o usuário realize a tarefa sem etapas desnecessárias.
+R20. Atalhos ou formas alternativas de interação
+Quando apropriado, o sistema deve oferecer formas alternativas ou mais rápidas de
+executar ações frequentes.
+R21. Adaptação à experiência do usuário
+A interface deve permitir que usuários familiarizados com o sistema realizem operações
+recorrentes de maneira eficiente.
+H8 — Design estético e minimalista
+
+R22. Ausência de informações desnecessárias
+A interface deve evitar informações, elementos ou funcionalidades que não contribuam
+para a realização da tarefa.
+R23. Hierarquia visual
+A interface deve apresentar uma hierarquia visual clara, destacando informações e ações
+relevantes.
+R24. Organização das informações
+Os elementos devem estar agrupados e organizados de maneira que facilite a
+compreensão e a execução da tarefa.
+H9 — Ajudar os usuários a reconhecer, diagnosticar e recuperar-se de erros
+R25. Mensagens de erro compreensíveis
+As mensagens de erro devem utilizar linguagem compreensível para o usuário.
+R26. Identificação do problema
+A mensagem de erro deve indicar claramente o que ocorreu de errado.
+R27. Orientação para recuperação
+Quando ocorrer um erro, o sistema deve indicar ao usuário como corrigir ou solucionar
+o problema.
+H10 — Ajuda e documentação
+R28. Instruções contextuais
+Quando necessário, a interface deve fornecer instruções ou orientações próximas à ação
+que precisa ser realizada.
+R29. Ajuda para operações complexas
+Operações que possam gerar dúvidas devem possuir mecanismos de ajuda ou
+orientação.
+R30. Documentação compreensível	
+Quando houver documentação ou ajuda, ela deve utilizar linguagem clara e estar
+organizada de forma que facilite sua consulta.

@@ -1,0 +1,8 @@
+O projeto é um protótipo de interface funcional de uma plataforma online de um petshop 'Propaws Petshop', 
+realize a implementação com base nos requisitos descritos em 'requisitos_pet_shop.txt'.
+O protótipo deve ter resolução e interface de um aplicativo móvel, porém deve ser funcional apenas no desktop, com o touch sendo simulado pelo mouse.
+Os animais disponíveis serão gato e cachorro, e os serviços: banho, tosa e completo
+Siga as heurísticas de Nielsen, implemente apenas as funcões que forem essenciais para o funcionamento da interface e não adicione funcionalidades que não estejam presentes nos requisitos.
+implemente tudo de uma vez, não abra perguntas
+Após gerar a interface, explique as principais decisões de design adotadas e indique
+como cada requisito foi implementado.
