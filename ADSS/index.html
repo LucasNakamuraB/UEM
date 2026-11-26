@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Truco Online</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <h1>Truco Online</h1>
+    <div id="user-badge" class="user-badge hidden"></div>
+  </header>
+
+  <main id="screens">
+
+    <section id="screen-login" class="screen">
+      <div class="panel panel-centered">
+        <h2>Entrar na plataforma</h2>
+        <p class="muted">Informe um apelido para acessar o lobby. Não é necessário cadastro.</p>
+        <form id="login-form" class="stack">
+          <input id="nickname-input" type="text" maxlength="16" placeholder="Seu apelido" autocomplete="off" required />
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+        <p id="login-error" class="error hidden"></p>
+      </div>
+    </section>
+
+    <section id="screen-lobby" class="screen hidden">
+      <div class="lobby-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Salas Públicas</h2>
+            <button id="btn-refresh-rooms" class="btn btn-ghost btn-sm" type="button" title="Atualizar">⟳</button>
+          </div>
+          <ul id="room-list" class="room-list"></ul>
+          <p id="room-list-empty" class="muted hidden">Nenhuma sala pública aberta agora. Crie a sua!</p>
+        </div>
+
+        <div class="panel">
+          <h2>Entrar com código</h2>
+          <form id="join-form" class="stack-row">
+            <input id="join-code-input" type="text" maxlength="6" placeholder="CÓDIGO" autocomplete="off" />
+            <button type="submit" class="btn btn-secondary">Entrar</button>
+          </form>
+
+          <hr class="divider" />
+
+          <button id="btn-open-create" type="button" class="btn btn-primary btn-block">Criar Sala</button>
+          <button id="btn-rules" type="button" class="btn btn-ghost btn-block">Ver regras implementadas</button>
+        </div>
+      </div>
+      <p id="lobby-error" class="error hidden"></p>
+    </section>
+
+    <section id="screen-room" class="screen hidden">
+      <div class="panel panel-centered">
+        <h2>Sala de espera</h2>
+        <div class="room-code-box">
+          Código: <strong id="room-code-display">-----</strong>
+          <button id="btn-copy-code" class="btn btn-ghost btn-sm" type="button">Copiar</button>
+        </div>
+        <div id="room-config-summary" class="config-summary"></div>
+        <ul id="room-players-list" class="players-list"></ul>
+        <div id="room-host-controls" class="stack hidden">
+          <button id="btn-add-bot" type="button" class="btn btn-secondary">Completar vaga com bot</button>
+          <button id="btn-start-match" type="button" class="btn btn-primary" disabled>Iniciar Partida</button>
+        </div>
+        <p id="room-wait-msg" class="muted hidden">Aguardando o anfitrião iniciar a partida...</p>
+        <button id="btn-leave-room" type="button" class="btn btn-ghost">Saída / Voltar ao lobby</button>
+      </div>
+    </section>
+
+    <section id="screen-game" class="screen hidden">
+      <div class="game-top">
+        <div class="score-box">
+          <span class="team-label team-a">Dupla A</span>
+          <span id="score-a" class="score-value">0</span>
+          <span class="score-sep">x</span>
+          <span id="score-b" class="score-value">0</span>
+          <span class="team-label team-b">Dupla B</span>
+          <span class="muted" id="points-to-win-label"></span>
+        </div>
+        <div class="vira-box">
+          Vira: <span id="vira-card" class="mini-card">--</span>
+          Manilha: <span id="manilha-rank">-</span>
+        </div>
+        <div class="hand-value-box">Mão vale <strong id="hand-value">1</strong> pts</div>
+        <button id="btn-leave-game" type="button" class="btn btn-ghost btn-sm">Saída</button>
+      </div>
+
+      <div id="table-area" class="table-area">
+        <div id="opponents-row" class="opponents-row"></div>
+        <div id="center-area" class="center-area">
+          <div id="rounds-display" class="rounds-display"></div>
+          <div id="turn-indicator" class="turn-indicator"></div>
+          <div id="pending-call-box" class="pending-call-box hidden"></div>
+        </div>
+      </div>
+
+      <div class="player-zone">
+        <div id="my-hand" class="my-hand"></div>
+        <div id="action-bar" class="action-bar"></div>
+      </div>
+
+      <div class="log-panel">
+        <div id="game-log" class="game-log"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="modal-root" class="modal-root hidden"></div>
+  <div id="toast-root" class="toast-root"></div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
